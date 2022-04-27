@@ -1,0 +1,27 @@
+{
+  "name": "0006-M7-U2-CONS",
+  "version": "1.0.0",
+  "description": "Ejercicio de Consolidación Bootcamp",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/operezedutecno/0006-M7-U2-CONS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/operezedutecno/0006-M7-U2-CONS/issues"
+  },
+  "homepage": "https://github.com/operezedutecno/0006-M7-U2-CONS#readme",
+  "dependencies": {
+    "express": "^4.18.0",
+    "pg": "^8.7.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
