@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mi Armario</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
+</head>
+
+<body>
+    <div id="AgregarPrenda">
+        <h2 class="pt-3">Mi Armario</h2>
+
+        <div class="container pt-3 w-50">
+            <div>
+                <div class="form-group row">
+                    <label for="nombre" class="col-sm-2 col-form-label">Nombre:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="nombre" value="Pantalón" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="color" class="col-sm-2 col-form-label">Color: </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="color" value="gris" />
+                    </div>
+                </div>
+                <button onclick="nuevaPrenda()" id="agregar" class="m-auto btn btn-primary">
+                    Agregar prenda de vestir
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="ListaPrendas">
+        <hr />
+        <h2>Tabla de prendas de vestir</h2>
+
+        <div class="container pt-3 pb-5 w-75">
+
+            <form class="form-inline" onsubmit="filtrarData(event)" style="display: flex;justify-content: flex-end;">
+                <div class="form-group mb-2">
+                    <label for="fnombre" class="sr-only">Nombre</label>
+                    <input type="text" class="form-control" id="fnombre" placeholder="por nombre">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="fcolor" class="sr-only">Color</label>
+                    <input type="text" class="form-control" id="fcolor" placeholder="por color">
+                </div>
+                <button type="submit" class="btn btn-secondary mb-2">Filtrar</button>
+            </form>
+
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Color</th>
+                        <th scope="col">-</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpo"></tbody>
+            </table>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</body>
+
+</html>
+
+<style>
+    body {
+        text-align: center;
+        background: #7d8199;
+        color: white;
+    }
+</style>
+
+<script>
+    let url = "/prendas";
+    let tbody = document.getElementById("cuerpo");
+    let nombre = document.getElementById("nombre");
+    let color = document.getElementById("color");
+    let tono = document.getElementById("tono");
+
+    let fnombre = document.getElementById("fnombre");
+    let fcolor = document.getElementById("fcolor");
+
+    let prendas = [];
+    window.onload = cargaDataInicial();
+
+    async function getData(ruta) {
+        await axios.get(ruta).then((data) => {
+            prendas = data.data.prendas;
+            tbody.innerHTML = "";
+            // console.log(prendas);
+            prendas.forEach((p, i) => {
+                tbody.innerHTML += `
+        <tr>
+          <td>${i + 1}</td>
+          <td>${p.nombre}</td>
+          <td>${p.color}</td>
+          <td>
+            <button class="btn btn-danger" onclick="eliminarCancion(${i},'${p.id
+                    }')">Eliminar</button>
+          </td>
+        </tr>
+      `;
+            });
+        });
+    }
+
+    function filtrarData(e) {
+        e.preventDefault();
+        let newUrl = `${url}?nombre=${fnombre.value}&color=${fcolor.value}`;
+        getData(newUrl);
+    }
+
+    function cargaDataInicial() {
+        getData(url);
+    }
+
+    function nuevaPrenda() {
+        nombre;
+        color;
+        let data = {
+            nombre: nombre.value,
+            color: color.value,
+        };
+        console.log(data);
+        axios.post(url, data).then(() => {
+            nombre.value = "";
+            color.value = ""; 
+            getData(url);
+        });
+    }
+
+    function eliminarCancion(i, id) {
+        alert("Pendiente de implementar en la API");
+        // axios.delete(url + "?id=" + id).then(() => {
+        //     alert("Prenda " + prendas[i].nombre + " eliminada");
+        //     getData(url);
+        // });
+    }
+</script>

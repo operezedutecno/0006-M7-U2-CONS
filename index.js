@@ -6,6 +6,10 @@ app.listen(3000, () => console.log("Servidor activo http://localhost:3000"))
 
 app.use(express.json());
 
+app.get("/", (req, res) => {
+    res.sendFile(`${__dirname}/index.html`);
+})
+
 app.get("/prendas", async (req, res) => {
     const listado = await listar(req.query);
     res.json({ prendas: listado.rows });
