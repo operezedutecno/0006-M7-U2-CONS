@@ -82,7 +82,6 @@
     let tbody = document.getElementById("cuerpo");
     let nombre = document.getElementById("nombre");
     let color = document.getElementById("color");
-    let tono = document.getElementById("tono");
 
     let fnombre = document.getElementById("fnombre");
     let fcolor = document.getElementById("fcolor");
@@ -102,7 +101,7 @@
           <td>${p.nombre}</td>
           <td>${p.color}</td>
           <td>
-            <button class="btn btn-danger" onclick="eliminarCancion(${i},'${p.id
+            <button class="btn btn-danger" onclick="eliminarPrenda(${i},'${p.id
                     }')">Eliminar</button>
           </td>
         </tr>
@@ -136,7 +135,7 @@
         });
     }
 
-    function eliminarCancion(i, id) {
+    function eliminarPrenda(i, id) {
         alert("Pendiente de implementar en la API");
         // axios.delete(url + "?id=" + id).then(() => {
         //     alert("Prenda " + prendas[i].nombre + " eliminada");
